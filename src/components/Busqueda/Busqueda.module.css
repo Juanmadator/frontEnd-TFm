@@ -1,0 +1,281 @@
+/* JobSearch.module.css */
+
+.jobSearchContainer {
+  background-color: #b9ddfb; /* Light blue background (from your provided code) */
+  padding: 0 40px; /* Changed padding-top to 0. Keep horizontal padding. */
+  min-height: 400px;
+  max-width: 1200px; /* From your provided code */
+  align-items: flex-start; /* Aligns content to the top of the container */
+  display: flex; /* Ensure display flex is set if not already default */
+  /* If your JobSearch component is wrapped in a full-width div, you might need margin: 0 auto; on this container */
+  margin: 0 auto; /* Added to center the max-width: 1200px container horizontally */
+  margin-top: -40px;
+}
+
+/* The .color class seems to be a new addition, ensure it's applied correctly if used elsewhere */
+.color {
+  background-color: #b9ddfb;
+}
+
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content wrapper horizontally */
+  padding-right: 30px;
+  text-align: center; /* Center text within this column */
+  padding-top: 60px; /* ADDED: Move the 60px padding here to maintain space *inside* the blue section */
+}
+
+.heroContentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start; /* Center items within this wrapper */
+  max-width: 600px; /* Limit the width of the content for better centering visual */
+  width: 100%;
+}
+
+.heroTextWrapper {
+  position: relative;
+  margin-bottom: 25px;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.heroText {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  line-height: 1.2;
+}
+
+.userIconTop {
+  position: absolute;
+  top: -15px;
+  right: -50px;
+  font-size: 3rem;
+  color: rgba(0, 0, 0, 0.2);
+  transform: rotate(15deg);
+}
+
+.searchForm {
+  width: 100%;
+  max-width: 550px;
+  margin-bottom: 20px;
+}
+
+.searchInputGroup {
+  display: flex;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.searchInput,
+.locationInput {
+  border: none;
+  padding: 12px 15px;
+  font-size: 1rem;
+}
+
+.searchInput:focus,
+.locationInput:focus {
+  box-shadow: none;
+}
+
+.locationIcon {
+  background-color: white;
+  border: none;
+  color: #999;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton {
+  background-color: #5c84a3;
+  border: none;
+  padding: 12px 20px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton:hover {
+  background-color: #4a6a81;
+}
+
+.updateCvLink {
+  color: #5c84a3;
+  text-decoration: underline;
+  font-size: 1rem;
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: 30px;
+  text-align: center;
+  padding-top: 60px; /* ADDED: Move the 60px padding here to maintain space *inside* the blue section */
+}
+
+.commonSearchesContentWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 450px;
+  width: 100%;
+}
+
+.commonSearchesHeader {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.commonSearchesTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.userIconRight {
+  position: absolute;
+  top: -15px;
+  right: 0;
+  font-size: 2.5rem;
+  color: rgba(0, 0, 0, 0.2);
+  transform: rotate(-10deg);
+}
+
+.commonSearchesButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  width: 100%;
+}
+
+.commonSearchButton {
+  background-color: #5c84a3;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.commonSearchButton:hover {
+  background-color: #4a6a81;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .jobSearchContainer {
+    padding: 0 15px; /* Adjust padding for mobile as well */
+  }
+
+  .leftSection,
+  .rightSection {
+    padding-left: 0;
+    padding-right: 0;
+    align-items: center;
+    text-align: center;
+    padding-top: 30px; /* Adjust padding-top for mobile sections */
+  }
+
+  .heroContentWrapper,
+  .commonSearchesContentWrapper {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .heroText {
+    font-size: 2rem;
+  }
+
+  .userIconTop {
+    top: -10px;
+    right: 5%;
+  }
+
+  .searchForm {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .searchInputGroup {
+    flex-wrap: wrap;
+    border-radius: 0;
+    box-shadow: none;
+    background-color: transparent;
+  }
+
+  .searchInput, .locationInput, .searchButton {
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .searchInput {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .locationInput {
+    order: 3;
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  .locationIcon {
+    order: 2;
+    width: 100%;
+    background-color: transparent;
+    justify-content: center;
+    padding: 0;
+    margin-bottom: 10px;
+  }
+
+  .searchButton {
+    order: 4;
+    width: 100%;
+  }
+
+  .rightSection {
+    margin-top: 40px;
+  }
+
+  .commonSearchesHeader {
+    text-align: center;
+  }
+
+  .userIconRight {
+    right: 5%;
+  }
+
+  .commonSearchesButtons {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .leftSection,
+  .rightSection {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 40px; /* Adjust padding-top for medium devices */
+  }
+
+  .heroText {
+    font-size: 2.2rem;
+  }
+}

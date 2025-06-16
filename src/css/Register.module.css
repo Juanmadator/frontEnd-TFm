@@ -1,0 +1,384 @@
+:root {
+    --background-color: #1e1e1e;
+    --card-background: #2b2b2b;
+    --input-background: #3c3c3c;
+    --text-color: #f0f0f0;
+    --placeholder-color: #aaaaaa;
+    --button-background: #007bff;
+    --button-hover-background: #0056b3;
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
+    --main-font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --register-card-width-desktop: 700px;
+    --register-card-padding-desktop: 50px;
+    --register-title-font-desktop: 3em;
+    --register-input-padding-desktop: 20px;
+    --register-button-padding-desktop: 20px;
+    --register-button-font-desktop: 1.3em;
+    --label-color: var(--placeholder-color);
+    --label-active-color: var(--button-background);
+    --label-font-size-default: 1.15em;
+    --label-font-size-active: 0.9em;
+}
+
+body {
+    margin: 0;
+}
+
+.registerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--main-font);
+    padding: 20px;
+}
+
+.registerCard {
+    background-color: var(--card-background);
+    padding: var(--register-card-padding-desktop);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    width: 100%;
+    max-width: var(--register-card-width-desktop);
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+
+.registerTitle {
+    color: var(--text-color);
+    font-size: var(--register-title-font-desktop);
+    margin-bottom: 45px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.registerForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.formColumns {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    margin-bottom: 0;
+}
+
+.column {
+    flex: 1;
+}
+
+.inputGroup {
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.column > .inputGroup:last-of-type {
+    margin-bottom: 0;
+}
+
+.formColumns + .checkboxGroup {
+    margin-top: 25px;
+}
+
+.registerButton {
+    background-color: var(--button-background);
+    color: white;
+    padding: var(--register-button-padding-desktop);
+    border: none;
+    border-radius: 8px;
+    font-size: var(--register-button-font-desktop);
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 25px;
+    font-weight: 600;
+}
+
+.registerButton:hover {
+    background-color: var(--button-hover-background);
+    transform: translateY(-2px);
+}
+
+.registerButton:active {
+    transform: translateY(0);
+}
+
+.registerButton:disabled {
+    background-color: #4a4a4a;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+}
+
+.loginPrompt {
+    text-align: left;
+    color: var(--text-color);
+    font-size: 1.05em;
+    margin-top: 40px;
+    line-height: 1.5;
+}
+
+.loginLink {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.loginLink:hover {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}
+
+.inputField {
+    width: 100%;
+    padding: var(--register-input-padding-desktop) 18px 12px 18px;
+    background-color: var(--input-background);
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    color: var(--text-color);
+    font-size: 1.15em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, padding 0.3s ease;
+}
+
+.inputField:focus {
+    outline: none;
+    border-color: var(--button-background);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+.inputLabel {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--label-color);
+    font-size: var(--label-font-size-default);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.inputField:focus + .inputLabel,
+.inputField:not(:placeholder-shown) + .inputLabel {
+    top: 14px;
+    font-size: var(--label-font-size-active);
+    color: var(--label-active-color);
+    transform: translateY(-50%) translateX(-2px);
+}
+
+.checkboxGroup {
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.checkboxField {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--placeholder-color);
+    border-radius: 4px;
+    background-color: var(--input-background);
+    cursor: pointer;
+    margin-right: 12px;
+    position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.checkboxField:checked {
+    background-color: var(--button-background);
+    border-color: var(--button-background);
+}
+
+.checkboxField:checked::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 7px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+.checkboxField:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.4);
+}
+
+.checkboxLabel {
+    color: var(--text-color);
+    font-size: 1.05em;
+    cursor: pointer;
+}
+
+@media (min-width: 768px) {
+    .formColumns {
+        flex-direction: row;
+        gap: 40px;
+        margin-bottom: 28px;
+    }
+
+    .column {
+        flex: 1;
+    }
+
+    .column > .inputGroup:last-of-type {
+        margin-bottom: 28px;
+    }
+
+    .formColumns + .checkboxGroup {
+        margin-top: 0;
+    }
+
+    .registerCard {
+        max-width: var(--register-card-width-desktop);
+        padding: var(--register-card-padding-desktop);
+    }
+}
+
+@media (min-width: 1025px) {
+}
+
+@media (max-width: 767px) {
+    .registerCard {
+        margin: 25px;
+        padding: 35px 25px;
+        max-width: 90%;
+        border-radius: 10px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .registerTitle {
+        font-size: 2.2em;
+        margin-bottom: 25px;
+    }
+
+    .inputGroup {
+        margin-bottom: 20px;
+    }
+
+    .inputField {
+        padding: 14px 15px 10px 15px;
+        font-size: 1em;
+    }
+    .inputLabel {
+        font-size: 1em;
+    }
+    .inputField:focus + .inputLabel,
+    .inputField:not(:placeholder-shown) + .inputLabel {
+        top: 10px;
+        font-size: 0.8em;
+    }
+
+    .registerButton {
+        padding: 14px;
+        font-size: 1.05em;
+        margin-top: 18px;
+    }
+
+    .loginPrompt {
+        font-size: 0.95em;
+        margin-top: 25px;
+    }
+
+    .checkboxGroup {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .checkboxField {
+        width: 20px;
+        height: 20px;
+    }
+    .checkboxField:checked::after {
+        top: 2px;
+        left: 6px;
+        width: 5px;
+        height: 10px;
+    }
+    .checkboxLabel {
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 480px) {
+    .registerCard {
+        padding: 30px 20px;
+        margin: 15px;
+    }
+
+    .registerTitle {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    .inputField {
+        padding: 12px 15px 8px 15px;
+        font-size: 0.9em;
+    }
+    .inputLabel {
+        font-size: 0.9em;
+    }
+    .inputField:focus + .inputLabel,
+    .inputField:not(:placeholder-shown) + .inputLabel {
+        top: 8px;
+        font-size: 0.75em;
+    }
+
+    .registerButton {
+        padding: 12px;
+        font-size: 0.95em;
+    }
+
+    .loginPrompt {
+        font-size: 0.9em;
+        margin-top: 20px;
+    }
+
+    .checkboxField {
+        width: 18px;
+        height: 18px;
+    }
+    .checkboxField:checked::after {
+        top: 2px;
+        left: 5px;
+        width: 4px;
+        height: 9px;
+        border-width: 0 2px 2px 0;
+    }
+    .checkboxLabel {
+        font-size: 0.9em;
+    }
+}
+
+
+/* src/css/Register.module.css */
+
+/* ... (your existing styles) ... */
+
+/* Add specific styling for textarea if inputField doesn't cover it fully */
+.inputField[type="textarea"], /* This won't work, type attribute isn't on textarea */
+.inputField /* This targets all inputs, but textarea might need special handling */
+{
+  /* Add or ensure textarea specific styles */
+  resize: vertical; /* Allow vertical resizing for textarea */
+}
+
+/* If you use the floating label on textarea */
+.inputField:focus + .inputLabel,
+.inputField:not(:placeholder-shown) + .inputLabel {
+    /* ... existing styles ... */
+}
+/* For textarea, you might want to ensure the label position looks good */
+textarea.inputField:focus + .inputLabel,
+textarea.inputField:not(:placeholder-shown) + .inputLabel {
+    top: 14px; /* Adjust as needed for textarea */
+    font-size: var(--label-font-size-active);
+    color: var(--label-active-color);
+    transform: translateY(-50%) translateX(-2px);
+}

@@ -1,0 +1,358 @@
+.perfilContainer {
+  padding: 0 40px;
+  min-height: calc(100vh - var(--navbar-height, 80px));
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 100px;
+}
+
+.perfilContentWrapper {
+  max-width: 1000px;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.imageColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.imageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.profileImage {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #5c84a3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.editImageButton {
+  background-color: #5c84a3;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.editImageButton:hover {
+  background-color: #4a6a81;
+}
+
+.dataColumn {
+  padding: 20px;
+}
+
+.dataBox {
+  background-color: #5c84a3;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 150px;
+  justify-content: flex-start;
+  align-items: start;
+}
+
+.dataBox p {
+  margin-bottom: 0;
+  font-size: 1.1rem;
+}
+
+.dataBox p strong {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.editDataButton {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background-color: #e0f2f7;
+  color: #333;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.editDataButton:hover {
+  background-color: #c9e6f0;
+}
+
+.cvButtonsColumn {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding: 0 20px;
+}
+
+.cvButtonsWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.cvButton {
+  background-color: #5c84a3;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.cvButton:hover {
+  background-color: #4a6a81;
+}
+
+.whiteSectionWrapper {
+  background-color: white;
+  width: 100%;
+  padding: 30px;
+  margin-top: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sectionCol {
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.infoBox {
+  background-color: #48769c;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.infoBoxHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.infoBoxHeader h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.headerUserIcon {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-right: 10px;
+  transform: rotate(5deg);
+}
+
+.addIcon {
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.addIcon:hover {
+  color: #b9ddfb;
+}
+
+.experienceList,
+.studyList,
+.languageList {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+  line-height: 1.6;
+}
+
+.experienceList li,
+.studyList li,
+.languageList li {
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.companyName {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.viewMoreButton {
+  background-color: transparent;
+  border: 1px solid white;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  margin-top: auto;
+  align-self: flex-start;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.viewMoreButton:hover {
+  background-color: white;
+  color: #48769c;
+}
+
+.infoBoxMarginTop {
+  margin-top: 30px;
+}
+
+@media (max-width: 767.98px) {
+  .perfilContainer {
+    padding: 0 15px;
+    min-height: auto;
+    margin-top: 100px;
+  }
+
+  .perfilContentWrapper {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+
+  .imageColumn,
+  .dataColumn {
+    padding: 15px;
+  }
+
+  .profileImage {
+    width: 150px;
+    height: 150px;
+  }
+
+  .dataBox {
+    text-align: center;
+    min-height: auto;
+  }
+
+  .editDataButton {
+    position: static;
+    margin-top: 15px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cvButtonsColumn {
+    padding: 0 15px;
+  }
+
+  .cvButtonsWrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .cvButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .whiteSectionWrapper {
+    padding: 20px;
+    margin-top: 20px;
+    gap: 20px;
+  }
+
+  .sectionCol {
+    padding: 0;
+    gap: 20px;
+  }
+
+  .infoBox {
+    padding: 15px;
+    height: auto;
+  }
+
+  .infoBoxHeader {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .infoBoxHeader h3 {
+    font-size: 1.15rem;
+    margin-bottom: 5px;
+  }
+
+  .headerUserIcon {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .infoBoxMarginTop {
+    margin-top: 20px;
+  }
+
+  .viewMoreButton {
+    align-self: center;
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .perfilContentWrapper {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .whiteSectionWrapper {
+    padding: 25px;
+    gap: 25px;
+  }
+
+  .sectionCol {
+    padding: 0 10px;
+  }
+
+  .infoBox {
+    padding: 18px;
+  }
+
+  .infoBoxMarginTop {
+    margin-top: 25px;
+  }
+}
+
+.hiddenFileInput{
+  display: none;
+}

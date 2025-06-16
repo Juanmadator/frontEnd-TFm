@@ -1,0 +1,141 @@
+/* src/components/Footer/Footer.module.css */
+
+.footerContainer {
+  background-color: #2b5575; /* Dark blue background color */
+  color: white; /* Default text color */
+  padding: 40px 20px; /* Vertical and horizontal padding */
+  border-top: 1px solid #1a3a50; /* Optional: A slight border at the top */
+}
+
+.footerContentWrapper {
+  max-width: 1200px; /* Matches your other components' max-width */
+  margin: 0 auto; /* Center content horizontally */
+}
+
+.footerColumn {
+  margin-bottom: 25px; /* Space between columns on mobile */
+  padding: 0 20px; /* Internal padding for columns */
+}
+
+.columnTitle {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #f0f0f0; /* Slightly lighter white for titles */
+}
+
+.footerLinks {
+  list-style: none; /* Remove bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+.footerLinks li {
+  margin-bottom: 8px;
+}
+
+.footerLink {
+  color: #cccccc; /* Lighter white for links */
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footerLink:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+.columnDivider {
+  position: relative;
+}
+
+/* Vertical Divider for desktop */
+@media (min-width: 768px) { /* Applies from md breakpoint up */
+  .columnDivider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0; /* Position the line on the left of the column */
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent white line */
+  }
+}
+
+
+.socialColumn {
+  display: flex;
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  text-align: center; /* Ensure text inside is centered */
+  margin-bottom: 25px; /* Space on mobile */
+}
+
+.socialContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.jobDayText {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 0;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 20px; /* Space between icons */
+}
+
+.socialIconLink {
+  color: white;
+  font-size: 1.5rem; /* Icon size */
+  transition: color 0.3s ease;
+}
+
+.socialIconLink:hover {
+  color: #b9ddfb; /* Light blue on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) { /* Mobile (xs and sm) */
+  .footerColumn {
+    text-align: center; /* Center text for columns on mobile */
+    padding: 0 15px; /* Adjust padding for mobile */
+  }
+
+  .columnTitle {
+    margin-bottom: 10px; /* Reduce title margin on mobile */
+  }
+
+  .footerLinks li {
+    margin-bottom: 5px; /* Reduce link margin on mobile */
+  }
+
+  .socialColumn {
+    margin-top: 25px; /* Add top margin to separate from columns above */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) { /* Tablet (md) */
+  .footerColumn {
+    padding: 0 15px; /* Adjust column padding */
+  }
+
+  .socialColumn {
+    text-align: right; /* Align social column to right on tablet if desired, or keep center */
+    align-items: flex-end; /* Align social content to end for right alignment */
+  }
+
+  .socialContent {
+    align-items: flex-end; /* Align content inside to end */
+  }
+
+  .jobDayText {
+    font-size: 1.5rem;
+  }
+}

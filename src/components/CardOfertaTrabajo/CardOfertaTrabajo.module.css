@@ -1,0 +1,236 @@
+/* src/components/CardOfertaTrabajo/CardOfertaTrabajo.module.css */
+
+.cardContainer {
+  background-color: #b9ddfb !important; /* Fondo azul claro como la imagen */
+  border-radius: 12px;
+  border: 1px solid #b9ddfb; /* Borde más suave */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  margin-bottom: 25px; /* Espacio entre tarjetas si hay varias */
+  overflow: hidden; /* Asegura que los bordes redondeados se respeten */
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.cardContainer:hover {
+  transform: translateY(-5px); /* Pequeño efecto al pasar el ratón */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.cardBody {
+  padding: 25px;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  padding-right: 25px; /* Espacio entre columnas */
+}
+
+.companyHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.companyLogo {
+  width: 60px; /* Tamaño del logo */
+  height: 60px;
+  border-radius: 8px; /* Bordes redondeados del logo */
+  object-fit: cover;
+  margin-right: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.1); /* Borde sutil al logo */
+}
+
+.companyName {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0;
+}
+
+.description {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Limita a 4 líneas */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footerInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.viewMoreLink {
+  color: #5c84a3;
+  text-decoration: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.viewMoreLink:hover {
+  text-decoration: underline;
+}
+
+.timeAgo {
+  margin-left: auto;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end; /* Alinea los detalles y el botón a la derecha */
+  padding-left: 25px;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.detailBox {
+  background-color: #5c84a3;
+  color: white;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.detailBox svg {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.applyButton {
+  background-color: #007bff;
+  border-color: #007bff;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  width: 100%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.applyButton:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+/* NUEVO ESTILO PARA EL BOTÓN DE ELIMINAR */
+.deleteButton {
+  background-color: #dc3545; /* Rojo de Bootstrap (danger) */
+  border-color: #dc3545;
+  margin-top: 10px; /* Espacio entre el botón "Aplicar" y "Eliminar" */
+}
+
+.deleteButton:hover {
+  background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+  border-color: #bd2130;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767.98px) { /* Tablets y móviles */
+  .cardBody {
+    padding: 20px;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    padding: 0;
+    align-items: center;
+    text-align: center;
+  }
+
+  .companyHeader {
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  .companyLogo {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .companyName {
+    font-size: 1.4rem;
+  }
+
+  .description {
+    -webkit-line-clamp: unset;
+    margin-bottom: 20px;
+  }
+
+  .footerInfo {
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 15px;
+  }
+
+  .viewMoreLink,
+  .timeAgo {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .rightColumn {
+    margin-top: 25px;
+    align-items: center;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .detailBox {
+    padding: 12px;
+    font-size: 1rem;
+  }
+
+  .applyButton,
+  .deleteButton { /* Asegura que ambos botones sean full width en móvil */
+    padding: 12px 20px;
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) { /* Tablets */
+  .cardBody {
+    padding: 20px;
+  }
+  .companyName {
+    font-size: 1.4rem;
+  }
+  .description {
+    -webkit-line-clamp: 3;
+  }
+  .detailBox {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+  .applyButton,
+  .deleteButton {
+    padding: 8px 20px;
+    font-size: 1rem;
+  }
+}

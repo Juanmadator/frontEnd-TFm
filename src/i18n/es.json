@@ -1,0 +1,9 @@
+{
+  "welcome": "Bienvenido",
+  "login": "Iniciar sesión",
+    "profile":"Perfil",
+  "menu":"Menu",
+  "add":"Añadir",
+   "shop":"Tienda",
+  "logout":"Cerrar sesión"
+}
