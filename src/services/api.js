@@ -54,7 +54,21 @@ export const companyService = {
 };
 
 export const jobOfferService = {
-  getAllJobOffers: async () => API.get('/ofertas'),
+  getAllJobOffers: async (filtros = {}) => {
+    const params = new URLSearchParams();
+    
+    if (filtros.titulo) {
+      params.append('titulo', filtros.titulo);
+    }
+    if (filtros.ubicacion) {
+      params.append('ubicacion', filtros.ubicacion);
+    }
+
+    const queryString = params.toString();
+    
+    // La llamada ahora es dinámica.
+    return API.get(`/ofertas?${queryString}`);
+  },
   getJobOfferById: async (id) => API.get(`/ofertas/${id}`),
   createJobOffer: async (jobOfferData) => API.post('/ofertas', jobOfferData),
   updateJobOffer: async (id, jobOfferData) => API.put(`/ofertas/${id}`, jobOfferData),

@@ -10,6 +10,8 @@
   /* If your JobSearch component is wrapped in a full-width div, you might need margin: 0 auto; on this container */
   margin: 0 auto; /* Added to center the max-width: 1200px container horizontally */
   margin-top: -40px;
+  padding-top: 100px;
+  padding-bottom: 120px;
 }
 
 /* The .color class seems to be a new addition, ensure it's applied correctly if used elsewhere */

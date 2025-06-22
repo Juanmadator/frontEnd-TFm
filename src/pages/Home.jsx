@@ -1,19 +1,59 @@
+// src/pages/Home.jsx
 
-
+import { useState, useEffect } from 'react';
 import styles from "../css/Home.module.css";
-import imagen1 from "../assets/images/valorant1.jpg";
-import imagen2 from "../assets/images/valorant2.jpg";
-import imagen3 from "../assets/images/valorant3.jpeg";
 import Busqueda from "../components/Busqueda/Busqueda";
+import OfertasTrabajo from "./OfertaTrabajo";
+import { jobOfferService } from '../services/api';
 
 const Home = () => {
-  const myImages = [imagen1, imagen2, imagen3];
+  const [ofertas, setOfertas] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const [filtros, setFiltros] = useState({
+    titulo: '',
+    ubicacion: ''
+  });
 
+  useEffect(() => {
+    const temporizador = setTimeout(() => {
+        const fetchOfertasFiltradas = async () => {
+            try {
+                setLoading(true);
+              const response = await jobOfferService.getAllJobOffers(filtros);
+              console.log("OFERTAS:",response)
+                setOfertas(response.data);
+            } catch (err) {
+                setError("No se pudieron cargar las ofertas.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchOfertasFiltradas();
+    }, 500); 
+
+    return () => clearTimeout(temporizador);
+  }, [filtros]);
+
+  const handleFiltroChange = (nuevosFiltros) => {
+    setFiltros(prevFiltros => ({ ...prevFiltros, ...nuevosFiltros }));
+  };
+  
   return (
     <div className={styles.homeContainer}>
-       <Busqueda/>
+      <Busqueda 
+        filtros={filtros} 
+        onFiltroChange={handleFiltroChange} 
+      />
+      
+      <OfertasTrabajo 
+        ofertas={ofertas}
+        loading={loading}
+        error={error}
+        mostrarFormulario={false}
+      />
     </div>
-   
   );
 };
 

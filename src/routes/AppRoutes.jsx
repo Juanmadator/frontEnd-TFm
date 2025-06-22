@@ -9,6 +9,7 @@ import Footer from "../components/Footer/Footer";
 import { CreateCompany } from "../components/CrearEmpresa/CrearEmpresa";
 import Empresas from "../pages/Empresas";
 import OfertasTrabajo from "../pages/OfertaTrabajo";
+import OfertasTrabajoPage from "../pages/OfertasTrabajoPage";
 
 function Layout({ children }) {
   const location = useLocation();
@@ -57,7 +58,7 @@ export default function AppRoutes() {
           path="/ofertas"
           element={
             <ProtectedRoute>
-              <OfertasTrabajo />
+              <OfertasTrabajoPage />
             </ProtectedRoute>
           }
         />

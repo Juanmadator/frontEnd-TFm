@@ -16,14 +16,14 @@ function Footer() {
             <h5 className={styles.columnTitle}>{t('Sobre nosotros')}</h5>
             <ul className={styles.footerLinks}>
               <li>
-                <NavLink to="/why-jobday" className={styles.footerLink}>
-                  {t('Por qué JOB-DAY')}
-                </NavLink>
+               <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('¿Por qué nosotros?')} 
+                </a>
               </li>
               <li>
-                <NavLink to="/linkedin" className={styles.footerLink}>
-                  {t('Linkedin')}
-                </NavLink>
+               <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('Conócenos')} 
+                </a>
               </li>
             </ul>
           </Col>
@@ -33,19 +33,19 @@ function Footer() {
             <h5 className={styles.columnTitle}>{t('Politica')}</h5>
             <ul className={styles.footerLinks}>
               <li>
-                <NavLink to="/faq" className={styles.footerLink}>
-                  {t('FAQ')}
-                </NavLink>
+               <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('FAQ')} 
+                </a>
               </li>
               <li>
-                <NavLink to="/privacy-policy" className={styles.footerLink}>
-                  {t('Politica de privacidad')} {/* Assuming "Politica" here refers to privacy policy */}
-                </NavLink>
+                <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('Politica de privacidad')} 
+                </a>
               </li>
               <li>
-                <NavLink to="/linkedin-2" className={styles.footerLink}> {/* Duplicating linkedin as per image */}
-                  {t('Linkedin')}
-                </NavLink>
+               <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('Linkedin')} 
+                </a>
               </li>
             </ul>
           </Col>
@@ -55,14 +55,14 @@ function Footer() {
             <h5 className={styles.columnTitle}>{t('Sobre nosotros')}</h5> {/* Duplicated as per image */}
             <ul className={styles.footerLinks}>
               <li>
-                <NavLink to="/about-us-2" className={styles.footerLink}>
-                  {t('Sobre nosotros')}
-                </NavLink>
+               <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('Nosotros')} 
+                </a>
               </li>
               <li>
-                <NavLink to="/linkedin-3" className={styles.footerLink}> {/* Duplicating linkedin as per image */}
-                  {t('Linkedin')}
-                </NavLink>
+              <a href="https://evolveacademy.es" className={styles.footerLink}>
+                  {t('Instagram')} 
+                </a>
               </li>
             </ul>
           </Col>

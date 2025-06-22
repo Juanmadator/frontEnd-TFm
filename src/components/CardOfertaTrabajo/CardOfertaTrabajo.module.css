@@ -1,17 +1,15 @@
-/* src/components/CardOfertaTrabajo/CardOfertaTrabajo.module.css */
-
 .cardContainer {
-  background-color: #b9ddfb !important; /* Fondo azul claro como la imagen */
+  background-color: #b9ddfb !important;
   border-radius: 12px;
-  border: 1px solid #b9ddfb; /* Borde más suave */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  margin-bottom: 25px; /* Espacio entre tarjetas si hay varias */
-  overflow: hidden; /* Asegura que los bordes redondeados se respeten */
+  border: 1px solid #b9ddfb;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 25px;
+  overflow: hidden;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .cardContainer:hover {
-  transform: translateY(-5px); /* Pequeño efecto al pasar el ratón */
+  transform: scale(1.01);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -22,7 +20,7 @@
 .leftColumn {
   display: flex;
   flex-direction: column;
-  padding-right: 25px; /* Espacio entre columnas */
+  padding-right: 25px;
 }
 
 .companyHeader {
@@ -32,12 +30,12 @@
 }
 
 .companyLogo {
-  width: 60px; /* Tamaño del logo */
+  width: 60px;
   height: 60px;
-  border-radius: 8px; /* Bordes redondeados del logo */
+  border-radius: 50px;
   object-fit: cover;
   margin-right: 15px;
-  border: 1px solid rgba(0, 0, 0, 0.1); /* Borde sutil al logo */
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .companyName {
@@ -53,7 +51,7 @@
   line-height: 1.5;
   margin-bottom: 15px;
   display: -webkit-box;
-  -webkit-line-clamp: 4; /* Limita a 4 líneas */
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -86,7 +84,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end; /* Alinea los detalles y el botón a la derecha */
+  align-items: flex-end;
   padding-left: 25px;
 }
 
@@ -135,20 +133,18 @@
   transform: translateY(-2px);
 }
 
-/* NUEVO ESTILO PARA EL BOTÓN DE ELIMINAR */
 .deleteButton {
-  background-color: #dc3545; /* Rojo de Bootstrap (danger) */
+  background-color: #dc3545;
   border-color: #dc3545;
-  margin-top: 10px; /* Espacio entre el botón "Aplicar" y "Eliminar" */
+  margin-top: 10px;
 }
 
 .deleteButton:hover {
-  background-color: #c82333; /* Rojo más oscuro al pasar el ratón */
+  background-color: #c82333;
   border-color: #bd2130;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 767.98px) { /* Tablets y móviles */
+@media (max-width: 767.98px) {
   .cardBody {
     padding: 20px;
   }
@@ -208,13 +204,13 @@
   }
 
   .applyButton,
-  .deleteButton { /* Asegura que ambos botones sean full width en móvil */
+  .deleteButton {
     padding: 12px 20px;
     font-size: 1rem;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991.98px) { /* Tablets */
+@media (min-width: 768px) and (max-width: 991.98px) {
   .cardBody {
     padding: 20px;
   }

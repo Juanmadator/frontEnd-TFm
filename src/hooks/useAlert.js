@@ -6,16 +6,35 @@ const MySwal = withReactContent(Swal);
 
 const useAlerts = () => {
 
-  const defaultToastOptions = { /* ... */ };
-  const showSuccessAlert = (title, text, options = {}) => { /* ... */ };
-  const showErrorAlert = (title, text, options = {}) => { /* ... */ };
-  const showWarningAlert = (title, text, options = {}) => { /* ... */ };
-  const showInfoAlert = (title, text, options = {}) => { /* ... */ };
-  const showConfirmAlert = (title, text, options = {}) => { /* ... */ };
-  const showLoadingAlert = (title = 'Cargando...', text = 'Por favor espera.') => { /* ... */ };
-  const showToast = (icon, title, text = '', options = {}) => { /* ... */ };
-  const closeAlert = () => { /* ... */ };
-  const formatDateForInput = (dateString) => { /* ... */ };
+  const defaultToastOptions = {  };
+  const showSuccessAlert = (title, text, options = {}) => {  };
+  const showErrorAlert = (title, text, options = {}) => {  };
+  const showWarningAlert = (title, text, options = {}) => {  };
+  const showInfoAlert = (title, text, options = {}) => {  };
+  const showConfirmAlert = (title, text, options = {}) => {  };
+  const showLoadingAlert = (title = 'Cargando...', text = 'Por favor espera.') => {  };
+  const showToast = (icon, title, text = '', options = {}) => {
+  const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer);
+      toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+  });
+
+  Toast.fire({
+    icon: icon,
+    title: title,
+    text: text,
+    ...options,
+  });
+};
+  const closeAlert = () => {  };
+  const formatDateForInput = (dateString) => {  };
 
   const showEditProfileModal = useCallback(async (currentName, currentStatus, currentNacimiento) => {
     const formattedNacimiento = currentNacimiento ? formatDateForInput(currentNacimiento) : '';
@@ -44,13 +63,13 @@ const useAlerts = () => {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            align-items: flex-start; /* Asegura que los grupos estén alineados a la izquierda */
+            align-items: flex-start;
           }
 
           .swal2-input-group {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Asegura que label e input dentro del grupo estén alineados a la izquierda */
+            align-items: flex-start;
             width: 100%;
           }
 
@@ -59,7 +78,7 @@ const useAlerts = () => {
             color: #495057;
             margin-bottom: 8px;
             font-weight: 500;
-            text-align: left; /* Asegura la alineación del texto del label */
+            text-align: left;
           }
 
           .swal2-input {
@@ -69,11 +88,11 @@ const useAlerts = () => {
             font-size: 1.1em;
             color: #495057;
             background-color: #fff;
-            width: 100%; /* Asegura el 100% del ancho de su contenedor */
-            box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+            width: 100%;
+            box-sizing: border-box;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
-            text-align: left; /* <--- CRUCIAL: Alinea el texto interno del input/select a la izquierda */
-            margin: 0; /* <--- CRUCIAL: Elimina cualquier margen externo que pueda estar centrándolo */
+            text-align: left;
+            margin: 0;
           }
 
           .swal2-input:focus {
@@ -82,7 +101,6 @@ const useAlerts = () => {
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
           }
           
-          /* Ocultar el scroll horizontal del input type="date" */
           input[type="date"]::-webkit-calendar-picker-indicator,
           input[type="date"]::-webkit-inner-spin-button,
           input[type="date"]::-webkit-clear-button {
@@ -107,7 +125,6 @@ const useAlerts = () => {
               -ms-overflow-style: none;
               scrollbar-width: none;
           }
-
 
           .swal2-actions {
             margin-top: 30px !important;
@@ -139,7 +156,6 @@ const useAlerts = () => {
             background-color: #5a6268 !important;
           }
 
-          /* Responsive para pequeños tamaños */
           @media (max-width: 500px) {
             .swal2-input {
               padding: 10px 12px;
