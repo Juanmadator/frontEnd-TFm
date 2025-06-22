@@ -27,14 +27,14 @@ function NavbarMenu() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mx-auto">
             <Nav.Link as={NavLink} to="/">
-              {t("menu")}
+              {t("Menu")}
             </Nav.Link>
             <Nav.Link as={NavLink} to="/profile">
-              {t("profile")}
+              {t("Perfil")}
             </Nav.Link>
 
                <Nav.Link as={NavLink} to="/empresas">
-              {t("Companies")}
+              {t("Empresas")}
             </Nav.Link>
 
                 <Nav.Link as={NavLink} to="/ofertas">
@@ -43,7 +43,7 @@ function NavbarMenu() {
           </Nav>
           <Nav>
             <Button variant="outline-light" onClick={handleLogout} className={`${styles.logout} ms-2`}>
-              {t("logout")}
+              {t("Cerrar Sesión")}
             </Button>
           </Nav>
         </Navbar.Collapse>
