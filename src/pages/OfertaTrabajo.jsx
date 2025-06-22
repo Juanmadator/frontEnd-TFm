@@ -48,7 +48,7 @@ function OfertasTrabajo({ ofertas = [], loading, error, mostrarFormulario = true
     }
 
     if (!ofertas || ofertas.length === 0) {
-      return <p className="text-center" style={{color: 'white',marginBottom: '100px',color:'red'}}>{t('No se encontraron ofertas con esos criterios.')}</p>;
+      return <p className="text-center" style={{marginBottom: '100px',color:'red'}}>{t('No se encontraron ofertas con esos criterios.')}</p>;
     }
 
     return currentItems.map((oferta) => (
