@@ -1,6 +1,6 @@
 // src/services/authService.js
 
-const API_BASE_URL = 'tfm-back-fz5sr5ojo-juanmadators-projects.vercel.app/api';
+const API_BASE_URL = 'https://tfm-back.vercel.app/api';
 
 // La función ahora es mucho más simple. Solo hace la petición y devuelve los datos.
 export const loginUser = async (email, password) => {
