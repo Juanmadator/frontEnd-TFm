@@ -42,11 +42,11 @@ export const AuthProvider = ({ children }) => {
   };
 
 
-   const register = async ({nombre,email,password,rol,username}) => {
+   const register = async (nombre,email,password,rol,username) => {
     setLoading(true);
     try {
       // Llamamos al servicio de API que solo hace la petición fetch
-      const data = await registerApiService({nombre,email,password,rol,username});
+      const data = await registerApiService(nombre,email,password,rol,username);
       
       // Opcional y recomendado: Si el registro devuelve un usuario y un token,
       // hacemos login automáticamente.

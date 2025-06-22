@@ -20,7 +20,7 @@ export const loginUser = async (email, password) => {
 };
 
 // Hacemos lo mismo para el registro
-export const registerUser = async ({nombre,email,password,rol,username}) => {
+export const registerUser = async (nombre,email,password,rol,username) => {
   const response = await fetch(`${API_BASE_URL}/usuarios/register`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
