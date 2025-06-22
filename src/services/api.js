@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: 'tfm-back-fz5sr5ojo-juanmadators-projects.vercel.app/api',
   headers: {
     'Content-Type': 'application/json',
   },
