@@ -18,7 +18,6 @@ export const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
     showLoadingAlert('Registrando usuario...', 'Por favor espera.');
 
     const rol = isAdmin ? 'admin' : 'usuario';
@@ -34,9 +33,7 @@ export const Register = () => {
       closeAlert();
       showToast('error', 'Error en el Registro', error.message || 'Hubo un problema al crear tu cuenta. Inténtalo de nuevo.');
       console.error('Error de registro en el componente:', error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   return (
