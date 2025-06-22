@@ -3,19 +3,35 @@ import { Login } from "../features/auth/Login";
 import { Register } from "../features/auth/Register";
 import { App } from "../App";
 import NavbarMenu from "../components/Navbar/NavbarMenu";
-import ProtectedRoute from "../components/ProtectedRoute";
 import { Perfil } from "../components/Profile/Profile";
 import Footer from "../components/Footer/Footer";
 import { CreateCompany } from "../components/CrearEmpresa/CrearEmpresa";
 import Empresas from "../pages/Empresas";
-import OfertasTrabajo from "../pages/OfertaTrabajo";
 import OfertasTrabajoPage from "../pages/OfertasTrabajoPage";
+import { AuthProvider } from "../features/auth/AuthContext";
+
+export default function AppRoutes() {
+  return (
+    <AuthProvider>
+      <Layout>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/crear" element={<CreateCompany />} />
+          <Route path="/profile" element={<Perfil />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/empresas" element={<Empresas />} />
+          <Route path="/ofertas" element={<OfertasTrabajoPage />} />
+          <Route path="/" element={<App />} />
+        </Routes>
+      </Layout>
+    </AuthProvider>
+  );
+}
 
 function Layout({ children }) {
   const location = useLocation();
 
   const noNavbarRoutes = ["/login", "/register"];
-
   const noFooterRoutes = ["/login", "/register"];
   const showNavbar = !noNavbarRoutes.includes(location.pathname);
   const showFooter = !noFooterRoutes.includes(location.pathname);
@@ -23,55 +39,7 @@ function Layout({ children }) {
     <>
       {showNavbar && <NavbarMenu />}
       <main>{children}</main>
-
       {showFooter && <Footer />}
     </>
-  );
-}
-
-export default function AppRoutes() {
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/crear" element={<CreateCompany />} />
-        <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <Perfil />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/register" element={<Register />} />
-
-        <Route
-          path="/empresas"
-          element={
-            <ProtectedRoute>
-              <Empresas />
-            </ProtectedRoute>
-          }
-        />
-
-            <Route
-          path="/ofertas"
-          element={
-            <ProtectedRoute>
-              <OfertasTrabajoPage />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <App />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </Layout>
   );
 }

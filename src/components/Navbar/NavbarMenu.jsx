@@ -3,29 +3,20 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../../features/auth/AuthContext';
 import styles from './Navbarmenu.module.css'
 import { useTranslation } from 'react-i18next';
 
 function NavbarMenu() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    if (localStorage.getItem('userToken')) {
-      localStorage.removeItem('userToken');
-      console.log('userToken eliminado de localStorage.');
-    } else {
-      console.log('userToken no encontrado en localStorage.');
-    }
+ const { user, logout, loading, isAdmin } = useAuth();
 
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-      console.log('user eliminado de localStorage.');
-    } else {
-      console.log('user no encontrado en localStorage.');
-    }
-    
-    navigate('/login');
+
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login'); 
   };
 
   return (

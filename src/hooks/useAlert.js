@@ -18,7 +18,7 @@ const useAlerts = () => {
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 3000,
+    timer: 2000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer);
@@ -33,7 +33,9 @@ const useAlerts = () => {
     ...options,
   });
 };
-  const closeAlert = () => {  };
+  const closeAlert = () => {
+    Swal.close();
+  };
   const formatDateForInput = (dateString) => {  };
 
   const showEditProfileModal = useCallback(async (currentName, currentStatus, currentNacimiento) => {

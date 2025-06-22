@@ -5,7 +5,6 @@ import { jobOfferService, companyService } from "../../services/api";
 import useAlerts from "../../hooks/useAlert";
 
 export const CrearOferta = ({onOfertaCreada }) => {
-  // --- Estados para los campos de la oferta ---
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [ubicacion, setUbicacion] = useState("");
@@ -23,7 +22,6 @@ export const CrearOferta = ({onOfertaCreada }) => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user && user.id) {
       setUserId(user.id);
-      // Cargar las empresas asociadas a este usuario
       const fetchEmpresas = async () => {
         try {
           const response = await companyService.getAllCompanies();
@@ -188,7 +186,7 @@ export const CrearOferta = ({onOfertaCreada }) => {
                   style={{ color: "white" }}
                 >
                   <option key="default" value="" disabled>
-                    Seleccionaoptionmpresa
+                    Selecciona una empresa
                   </option>
                   {empresasDelUsuario.map((empresa) => (
                     <option
@@ -270,7 +268,7 @@ export const CrearOferta = ({onOfertaCreada }) => {
           <a
             href="/ofertas"
             className={styles.loginLink}
-            style={{ color: "white" }}
+            style={{ color: "var(--link-color)" }}
           >
             Volver a la lista de ofertas
           </a>

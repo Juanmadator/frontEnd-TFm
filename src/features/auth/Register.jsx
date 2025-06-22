@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from '../../css/Register.module.css'; // Asegúrate de la ruta correcta
+import styles from '../../css/Register.module.css'; 
 import { registerUser } from '../../services/authService';
 import useAlerts from '../../hooks/useAlert';
 

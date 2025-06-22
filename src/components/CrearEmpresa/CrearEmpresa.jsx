@@ -12,6 +12,7 @@ export const CreateCompany = () => {
   const [direccion, setDireccion] = useState('');
   const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(false);
+   const [isAdmin, setIsAdmin] = useState(false);
 
   const navigate = useNavigate();
   const { showToast, showLoadingAlert, closeAlert } = useAlerts();
@@ -20,17 +21,32 @@ export const CreateCompany = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user && user.id) {
       setUserId(user.id);
+       if (user.rol === 'admin') {
+        setIsAdmin(true);
+      }
     } else {
       showToast('error', 'Error', 'No se pudo obtener el ID de usuario. Inicia sesión.');
     }
   }, [showToast]);
 
 
+  const limpiarFormulario = () => {
+  setNombre('');
+  setDescripcion('');
+  setEmailContacto('');
+  setDireccion('');
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!userId) {
       showToast('error', 'Error', 'ID de usuario no disponible.');
+      return;
+    }
+
+    if (!isAdmin) {
+      showToast('error', 'Acceso denegado', 'No tienes permisos para registrar una empresa.');
       return;
     }
 
@@ -51,9 +67,9 @@ export const CreateCompany = () => {
       closeAlert();
       showToast('success', '¡Empresa Creada!', response.data.message || 'La empresa ha sido registrada con éxito.');
 
-      setTimeout(() => {
-        navigate('/empresas');
-      }, 1500);
+
+       limpiarFormulario();
+
 
     } catch (error) {
       closeAlert();
@@ -101,7 +117,6 @@ export const CreateCompany = () => {
               </div>
             </div>
 
-            {/* Columna Derecha */}
             <div className={styles.column}>
               <div className={styles.inputGroup}>
                 <textarea
@@ -141,8 +156,8 @@ export const CreateCompany = () => {
         </form>
         
         <div className={styles.loginPrompt}>
-          <a href="/empresas" className={styles.loginLink}>
-            Volver a la lista de empresas
+          <a href="/" className={styles.loginLink}>
+            Volver a la lista de ofertas
           </a>
         </div>
       </div>

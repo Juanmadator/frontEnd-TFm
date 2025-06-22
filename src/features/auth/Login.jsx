@@ -1,25 +1,35 @@
+// src/features/auth/Login.jsx
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../css/Login.module.css';
-import { loginUser } from '../../services/authService';
-import useAlerts from '../../hooks/useAlert'; // Asegúrate que el import apunte a useAlerts.js
+// import { loginUser } from '../../services/authService'; // <-- YA NO NECESITAMOS ESTO
+import { useAuth } from './AuthContext'; // 1. Importamos el hook 'useAuth' que creaste
+import useAlerts from '../../hooks/useAlert';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
+  
+  // 2. Obtenemos 'login' y 'loading' directamente del contexto
+  const { login, loading } = useAuth();
+  
+  // 3. Eliminamos el estado 'loading' local porque el contexto ya lo maneja
+  // const [loading, setLoading] = useState(false); 
+
   const navigate = useNavigate();
   const { showToast, showLoadingAlert, closeAlert } = useAlerts();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
     showLoadingAlert('Iniciando sesión...', 'Por favor espera.');
 
     try {
-      const data = await loginUser(email, password);
-      console.log(data)
+      // 4. En handleSubmit, llamamos a la función 'login' del contexto
+      // Esta función se encargará de llamar al servicio, actualizar el estado y localStorage
+      const data = await login(email, password);
+      
       closeAlert();
       showToast('success', 'BIENVENIDO', data.usuario.nombre || 'Has iniciado sesión con éxito.'); 
 
@@ -31,9 +41,8 @@ export const Login = () => {
       closeAlert();
       showToast('error', 'Error al iniciar sesión', error.message || 'Credenciales incorrectas. Inténtalo de nuevo.');
       console.error('Error de login en el componente:', error);
-    } finally {
-      setLoading(false);
     }
+    // Ya no necesitamos el 'finally' porque 'loading' se gestiona en el contexto
   };
 
   return (
@@ -49,7 +58,7 @@ export const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              disabled={loading}
+              disabled={loading} // <-- Este 'loading' ahora es el del contexto
             />
           </div>
           <div className={styles.inputGroup}>

@@ -1,6 +1,7 @@
 // src/pages/Perfil.jsx
 import React, { useState, useEffect } from "react"; // Importar useState y useEffect
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { useAuth } from '../../features/auth/AuthContext';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPencilAlt,
@@ -16,6 +17,7 @@ import { userService, uploadsService } from "../../services/api"; // Importar lo
 
 function Perfil() {
   const { t } = useTranslation();
+  const { user, logout, loading, isAdmin } = useAuth();
   const { showToast, showLoadingAlert, closeAlert, showEditProfileModal } = useAlerts();
 
   // Estado para los datos del usuario, inicializado vacío y luego cargado de la API
@@ -36,8 +38,9 @@ function Perfil() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       setLoadingProfile(true);
-      const storedUser = JSON.parse(localStorage.getItem("user"));
+      const storedUser = user;
 
+      console.log("USER",user)
       if (storedUser && storedUser.id) {
         try {
           const response = await userService.getUserById(storedUser.id);
