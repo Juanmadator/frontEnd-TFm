@@ -9,7 +9,7 @@ import { CreateCompany } from "../components/CrearEmpresa/CrearEmpresa";
 import Empresas from "../pages/Empresas";
 import OfertasTrabajoPage from "../pages/OfertasTrabajoPage";
 import { AuthProvider } from "../features/auth/AuthContext";
-
+import { ProtectedRoute } from "../components/ProtectedRoute";
 export default function AppRoutes() {
   return (
     <AuthProvider>
@@ -17,7 +17,9 @@ export default function AppRoutes() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/crear" element={<CreateCompany />} />
-          <Route path="/profile" element={<Perfil />} />
+          <ProtectedRoute>
+             <Route path="/profile" element={<Perfil />} />
+         </ProtectedRoute>
           <Route path="/register" element={<Register />} />
           <Route path="/empresas" element={<Empresas />} />
           <Route path="/ofertas" element={<OfertasTrabajoPage />} />
