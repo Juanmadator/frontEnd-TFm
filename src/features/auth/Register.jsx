@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../css/Register.module.css'; 
 import { registerUser } from '../../services/authService';
+import { useAuth } from './AuthContext';
 import useAlerts from '../../hooks/useAlert';
 
 export const Register = () => {
@@ -10,8 +11,8 @@ export const Register = () => {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [isAdmin, setIsAdmin] = useState(false);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+    const { register, loading } = useAuth();
   const { showToast, showLoadingAlert, closeAlert } = useAlerts();
 
   const handleSubmit = async (e) => {
@@ -23,7 +24,7 @@ export const Register = () => {
     const rol = isAdmin ? 'admin' : 'usuario';
 
     try {
-      const data = await registerUser(nombre, email, password, rol, username);
+      const data = await register(nombre, email, password, rol, username);
       closeAlert();
       showToast('success', '¡Registro Exitoso!', data.message || 'Tu cuenta ha sido creada.');
       setTimeout(() => {

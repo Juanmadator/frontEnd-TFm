@@ -25,7 +25,7 @@ export const CreateCompany = () => {
         setIsAdmin(true);
       }
     } else {
-      showToast('error', 'Error', 'No se pudo obtener el ID de usuario. Inicia sesión.');
+      showToast('error', 'Error', 'Inicia sesión.');
     }
   }, [showToast]);
 
