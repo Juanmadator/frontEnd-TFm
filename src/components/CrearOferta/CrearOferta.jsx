@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import styles from "../../css/Register.module.css"; // Puedes reutilizar los estilos o crear unos nuevos
+import styles from "../../css/Register.module.css";
 import { jobOfferService, companyService } from "../../services/api";
 import useAlerts from "../../hooks/useAlert";
+import { useAuth } from "../../features/auth/AuthContext"; // 1. Importamos el hook de autenticación
 
-export const CrearOferta = ({onOfertaCreada }) => {
+export const CrearOferta = ({ onOfertaCreada }) => {
+  // --- Estados del formulario ---
   const [titulo, setTitulo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [ubicacion, setUbicacion] = useState("");
@@ -12,16 +14,21 @@ export const CrearOferta = ({onOfertaCreada }) => {
   const [salario, setSalario] = useState("");
   const [horas_diarias, setHorasDiarias] = useState("");
   const [empresaId, setEmpresaId] = useState("");
+  
+  // --- Estados de lógica ---
   const [empresasDelUsuario, setEmpresasDelUsuario] = useState([]);
-  const [userId, setUserId] = useState(null);
   const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
   const { showToast, showLoadingAlert, closeAlert } = useAlerts();
 
+  // 2. Obtenemos el usuario y su rol desde el contexto
+  const { user, isAdmin } = useAuth();
+
+  // 3. El useEffect ahora depende de 'user' y es mucho más seguro y eficiente
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.id) {
-      setUserId(user.id);
+    // Solo buscamos las empresas si tenemos un usuario y es admin
+    if (user && isAdmin) {
       const fetchEmpresas = async () => {
         try {
           const response = await companyService.getAllCompanies();
@@ -39,15 +46,8 @@ export const CrearOferta = ({onOfertaCreada }) => {
         }
       };
       fetchEmpresas();
-    } else {
-      showToast(
-        "error",
-        "Error",
-        "No se pudo obtener el ID de usuario. Por favor, inicia sesión de nuevo."
-      );
-      navigate("/login");
     }
-  }, [showToast, navigate]);
+  }, [user, isAdmin, showToast]); // Dependemos de user e isAdmin para ejecutar la lógica
 
   const limpiarFormulario = () => {
     setTitulo("");
@@ -62,15 +62,12 @@ export const CrearOferta = ({onOfertaCreada }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userId) {
-      showToast("error", "Error", "ID de usuario no disponible.");
+    if (!isAdmin) {
+      showToast("error", "Acceso Denegado", "Solo los administradores pueden crear ofertas.");
       return;
-    } else if (!empresaId) {
-      showToast(
-        "error",
-        "Error",
-        "Debes seleccionar una empresa para la oferta."
-      );
+    }
+    if (!empresaId) {
+      showToast("error", "Campo Requerido", "Debes seleccionar una empresa.");
       return;
     }
 
@@ -83,27 +80,25 @@ export const CrearOferta = ({onOfertaCreada }) => {
         descripcion,
         ubicacion,
         modalidad,
-        salario: parseFloat(salario) || 0, // Enviar como número
+        salario: parseFloat(salario) || 0,
         horas_por_dia: parseInt(horas_diarias) || 0,
         id_empresa: empresaId,
-        user_id: userId,
+        user_id: user.id, // Usamos el ID del usuario del contexto
       };
 
-      const response = await jobOfferService.createJobOffer(offerData);
+      await jobOfferService.createJobOffer(offerData);
 
       closeAlert();
       showToast(
         "success",
         "¡Oferta Creada!",
-        response.data.message || "La oferta ha sido publicada con éxito."
-        );
-        
-        if (onOfertaCreada) {
+        "La oferta ha sido publicada con éxito."
+      );
+      
+      if (onOfertaCreada) {
         onOfertaCreada(); 
       }
       limpiarFormulario();
-
-    
     } catch (error) {
       closeAlert();
       const errorMessage =
@@ -118,6 +113,20 @@ export const CrearOferta = ({onOfertaCreada }) => {
       setLoading(false);
     }
   };
+
+  // 4. Si el usuario no es admin, mostramos un mensaje y no el formulario.
+  if (!isAdmin) {
+    return (
+        <div className={styles.registerContainer} style={{ marginTop: "40px" }}>
+            <div className={styles.registerCard}>
+                <h2 className={styles.registerTitle}>Crear Nueva Oferta</h2>
+                <p className="text-center" style={{color: '#ffc107'}}>
+                    No tienes permisos de administrador para acceder a esta sección.
+                </p>
+            </div>
+        </div>
+    );
+  }
 
   return (
     <div
@@ -164,7 +173,7 @@ export const CrearOferta = ({onOfertaCreada }) => {
                 <input
                   id="oferta-salario"
                   type="number"
-                  step="0.01"
+                  step="100"
                   className={styles.inputField}
                   placeholder="Salario (Anual Bruto)"
                   value={salario}
@@ -185,7 +194,7 @@ export const CrearOferta = ({onOfertaCreada }) => {
                   disabled={loading}
                   style={{ color: "white" }}
                 >
-                  <option key="default" value="" disabled>
+                  <option value="" disabled>
                     Selecciona una empresa
                   </option>
                   {empresasDelUsuario.map((empresa) => (

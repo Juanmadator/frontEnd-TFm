@@ -11,7 +11,21 @@ const useAlerts = () => {
   const showErrorAlert = (title, text, options = {}) => {  };
   const showWarningAlert = (title, text, options = {}) => {  };
   const showInfoAlert = (title, text, options = {}) => {  };
-  const showConfirmAlert = (title, text, options = {}) => {  };
+   const showConfirmAlert = async (title, text, options = {}) => {
+    const result = await MySwal.fire({
+      title: title,
+      text: text,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33', 
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: options.confirmButtonText || 'Sí, ¡hazlo!',
+      cancelButtonText: options.cancelButtonText || 'Cancelar',
+      ...options, 
+    });
+
+    return result.isConfirmed; // isConfirmed es `true` solo si se presiona el botón de confirmar
+  };
   const showLoadingAlert = (title = 'Cargando...', text = 'Por favor espera.') => {  };
   const showToast = (icon, title, text = '', options = {}) => {
   const Toast = Swal.mixin({

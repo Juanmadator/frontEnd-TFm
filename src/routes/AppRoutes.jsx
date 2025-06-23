@@ -17,9 +17,7 @@ export default function AppRoutes() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/crear" element={<CreateCompany />} />
-         
-            <Route path="/profile" element={  <ProtectedRoute><Perfil></Perfil></ProtectedRoute>} />
-       
+          <Route path="/profile" element={  <ProtectedRoute><Perfil></Perfil></ProtectedRoute>} />
           <Route path="/register" element={<Register />} />
           <Route path="/empresas" element={<Empresas />} />
           <Route path="/ofertas" element={<OfertasTrabajoPage />} />

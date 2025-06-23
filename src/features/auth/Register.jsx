@@ -122,7 +122,10 @@ export const Register = () => {
           </button>
         </form>
         <div className={styles.loginPrompt}>
-          ¿Ya tienes una cuenta? <a href="/login" className={styles.loginLink}>Iniciar Sesión</a>
+         <b> ¿Ya tienes una cuenta? </b><a href="/login" className={styles.loginLink}><b>Iniciar Sesión</b></a>
+        </div>
+          <div className={styles.loginPrompt}>
+         ¿Nos conoces?<a href="/" className={styles.loginLink}> <b>Ir al menú</b></a> 
         </div>
       </div>
     </div>

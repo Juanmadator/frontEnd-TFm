@@ -1,9 +1,7 @@
-// src/services/api.js
-
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'https://tfm-back.vercel.app/api',
+  baseURL: 'http://localhost:3000/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -29,7 +27,6 @@ API.interceptors.response.use(
       localStorage.removeItem('userToken');
       localStorage.removeItem('user');
       console.error('Error de autenticación: Token expirado o inválido.');
-      // window.location.href = '/login';
     }
     return Promise.reject(error);
   }
@@ -56,17 +53,13 @@ export const companyService = {
 export const jobOfferService = {
   getAllJobOffers: async (filtros = {}) => {
     const params = new URLSearchParams();
-    
     if (filtros.titulo) {
       params.append('titulo', filtros.titulo);
     }
     if (filtros.ubicacion) {
       params.append('ubicacion', filtros.ubicacion);
     }
-
     const queryString = params.toString();
-    
-    // La llamada ahora es dinámica.
     return API.get(`/ofertas?${queryString}`);
   },
   getJobOfferById: async (id) => API.get(`/ofertas/${id}`),
@@ -83,17 +76,14 @@ export const uploadsService = {
     if (!userId) {
       throw new Error('El ID de usuario es necesario para subir el currículum.');
     }
-
     const formData = new FormData();
     formData.append('pdf', pdfFile);
-
     try {
       const response = await API.post(`/uploads/resume/${userId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       if (response.data && response.data.url) {
         return response.data.url;
       } else {
@@ -112,17 +102,14 @@ export const uploadsService = {
     if (!userId) {
       throw new Error('El ID de usuario es necesario para subir la imagen de perfil.');
     }
-
     const formData = new FormData();
     formData.append('image', imageFile);
-
     try {
       const response = await API.post(`/uploads/profile-image/${userId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       if (response.data && response.data.url) {
         return response.data.url;
       } else {
@@ -133,4 +120,16 @@ export const uploadsService = {
       throw new Error(error.response?.data?.message || 'Error al subir la imagen de perfil. Inténtalo de nuevo.');
     }
   },
+};
+
+export const applicationService = {
+  applyToJobOffer: async (usuarioId, ofertaId) => {
+    return API.post(`/applications/usuarios/${usuarioId}/ofertas/${ofertaId}`);
+  },
+  getUserApplications: async (usuarioId) => {
+    return API.get(`/applications/usuarios/${usuarioId}`);
+  },
+  deleteApplication: async (ofertaId) => {
+    return API.delete(`/applications/${ofertaId}`);
+  }
 };

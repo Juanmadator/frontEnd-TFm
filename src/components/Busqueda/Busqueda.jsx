@@ -29,12 +29,9 @@ function Busqueda({ filtros, onFiltroChange }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // La búsqueda ahora es en tiempo real, pero podemos dejar esto por si quieres añadir
-    // alguna funcionalidad extra al botón en el futuro.
-    console.log('Búsqueda activada con filtros:', filtros);
+   
   };
 
-  // 6. El clic en una búsqueda común ahora llama a onFiltroChange para actualizar el título en 'Home'
   const handleCommonSearchClick = (term) => {
     onFiltroChange({ titulo: term });
   };

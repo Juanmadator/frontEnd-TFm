@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import styles from '../css/OfertaTrabajo.module.css';
 import { CrearOferta } from '../components/CrearOferta/CrearOferta';
 
-function OfertasTrabajo({ ofertas = [], loading, error, mostrarFormulario = true, onOfferCreated }) {
+function OfertasTrabajo({ ofertas = [], loading, error, mostrarFormulario = false, onOfferCreated }) {
   const { t } = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);

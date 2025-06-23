@@ -1,69 +1,91 @@
-import { useState, useEffect } from 'react';
-import { Card, Button, Row, Col } from 'react-bootstrap';
+import { useState } from 'react';
+import { Card, Button, Row, Col, Spinner } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faWifi, faClock, faMapMarkerAlt, faBuilding } from '@fortawesome/free-solid-svg-icons';
+import { faWifi, faClock, faMapMarkerAlt, faBuilding, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import styles from './CardOfertaTrabajo.module.css';
-import { jobOfferService } from '../../services/api';
+
+import { applicationService, jobOfferService } from '../../services/api';
+import { useAuth } from '../../features/auth/AuthContext';
 import useAlerts from '../../hooks/useAlert';
 import logoImagen from '../../assets/images/logo.jpeg';
 
-function CardOfertaTrabajo({ oferta, onOfferDeleted }) {
+function CardOfertaTrabajo({ oferta, onOfferDeleted }) { 
   const { t } = useTranslation();
-  const { showToast, showLoadingAlert, closeAlert } = useAlerts();
-
-  const [loggedInUserId, setLoggedInUserId] = useState(null);
+  const { showToast ,showConfirmAlert} = useAlerts();
+  const { user, isAdmin } = useAuth();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isApplying, setIsApplying] = useState(false);
+  const [hasApplied, setHasApplied] = useState(oferta?.yaHaAplicado || false);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.id) {
-      setLoggedInUserId(user.id);
-    }
-  }, []);
-  
   if (!oferta) {
     return null; 
   }
 
-  const handleApply = () => {
-    console.log(`Aplicar a oferta ${oferta.id} de ${oferta.id_empresa?.nombre}`);
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm(t('¿Estás seguro de que quieres eliminar esta oferta?'))) {
+  const handleApply = async () => {
+    if (!user) {
+      showToast('error', 'Acción requerida', 'Debes iniciar sesión para poder aplicar.');
       return;
     }
 
-    setIsDeleting(true);
-    showLoadingAlert(t('Eliminando oferta...'), t('Por favor, espera.'));
-
+    setIsApplying(true);
     try {
-      await jobOfferService.deleteJobOffer(oferta._id);
-      closeAlert();
-      showToast('success', t('¡Éxito!'), t('Oferta eliminada correctamente.'));
+      await applicationService.applyToJobOffer(user.id, oferta._id); 
+      showToast('success', '¡Éxito!', 'Has aplicado correctamente a esta oferta.');
+      setHasApplied(true);
+    } catch (error) {
+      if (error.response && error.response.status === 409) {
+        showToast('info', 'Información', 'Ya habías aplicado a esta oferta.');
+        setHasApplied(true);
+      } else {
+        showToast('error', 'Error', error.response?.data?.message || 'No se pudo completar la aplicación.');
+      }
+      console.error('Error al aplicar a la oferta:', error);
+    } finally {
+      setIsApplying(false);
+    }
+  };
+
+  const handleDelete = async () => {
+   const result = await showConfirmAlert(
+      t('¿Estás seguro?'),
+      t('La oferta de trabajo será eliminada permanentemente.'),
+      { // Personalizamos los textos de los botones
+        confirmButtonText: t('Sí, eliminar'),
+        cancelButtonText: t('No, cancelar')
+      }
+    );
+
+     if (!result) {
+      return;
+    }
+    setIsDeleting(true);
+    try {
+      await applicationService.deleteApplication(oferta._id);
+      showToast('success', t('¡Éxito!'), t('Oferta eliminada.'));
       if (onOfferDeleted) {
         onOfferDeleted(oferta._id);
       }
+      setTimeout(() => {
+         window.location.reload();
+      },1000)
     } catch (error) {
-      closeAlert();
-      showToast('error', t('Error'), error.response?.data?.message || t('Hubo un problema al eliminar la oferta.'));
-      console.error('Error al eliminar oferta:', error.response?.data || error.message);
+      showToast('error', t('Error'), error.response?.data?.message || t('No se pudo eliminar la oferta.'));
     } finally {
       setIsDeleting(false);
     }
   };
   
-  const isOwner = loggedInUserId && loggedInUserId === oferta.user_id;
+  const isOwner = user && user._id === oferta.user_id;
   
-  const companyName = oferta.id_empresa?.nombre || t('Empresa no especificada');
-  const tituloOferta = oferta.titulo || t('Indefinido');
-  const companyLogo = oferta.id_empresa?.url_logo || defaultCompanyLogo;
-  const salaryText = oferta.salario ? `${oferta.salario} €` : t('Indefinido');
+  const companyName = oferta.id_empresa?.nombre || t('Indefinido');
+  const tituloOferta = oferta.titulo || t('Título no disponible');
+  const companyLogo =  logoImagen;
+  const salaryText = oferta.salario ? `${oferta.salario.toLocaleString('es-ES')} €` : t('Indefinido');
   const modalityText = oferta.modalidad || t('Indefinido');
-  const hoursText = oferta.horas_por_dia ? `${oferta.horas_por_dia} ${t('horas / día')}` : t('Indefinido');
-  const locationText = oferta.ubicacion || t('Desubicado');
-  const descriptionText = oferta.descripcion || t('Sin descripción.');
+  const hoursText = oferta.horas_por_dia ? `${oferta.horas_por_dia}h / día` : t('Indefinido');
+  const locationText = oferta.ubicacion || t('Indefinido');
+  const descriptionText = oferta.descripcion || t('Sin descripción disponible.');
   
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -78,7 +100,7 @@ function CardOfertaTrabajo({ oferta, onOfferDeleted }) {
         <Row className="align-items-start">
           <Col xs={12} md={8} className={styles.leftColumn}>
             <div className={styles.companyHeader}>
-              <img src={logoImagen} alt={`${companyName} Logo`} className={styles.companyLogo} />
+              <img src={companyLogo} alt={`${companyName} Logo`} className={styles.companyLogo} />
               <Card.Title className={styles.companyName}>{tituloOferta}</Card.Title>
             </div>
             <Card.Text className={styles.description}>
@@ -91,21 +113,24 @@ function CardOfertaTrabajo({ oferta, onOfferDeleted }) {
           </Col>
           <Col xs={12} md={4} className={styles.rightColumn}>
             <div className={styles.detailsGrid}>
-              <div className={styles.detailBox}>
-                <FontAwesomeIcon icon={faWifi} className={styles.icon} /> <span>{modalityText}</span>
-              </div>
-              <div className={styles.detailBox}>
-                <FontAwesomeIcon icon={faClock} className={styles.icon} /> <span>{hoursText}</span>
-              </div>
-              <div className={styles.detailBox}>
-                <FontAwesomeIcon icon={faMapMarkerAlt} className={styles.icon} /> <span>{locationText}</span>
-              </div>
-              <div className={styles.detailBox}>
-                 <FontAwesomeIcon icon={faBuilding} className={styles.icon} /> <span>{salaryText}</span>
-              </div>
+              <div className={styles.detailBox}><FontAwesomeIcon icon={faWifi} className={styles.icon} /> <span>{modalityText}</span></div>
+              <div className={styles.detailBox}><FontAwesomeIcon icon={faClock} className={styles.icon} /> <span>{hoursText}</span></div>
+              <div className={styles.detailBox}><FontAwesomeIcon icon={faMapMarkerAlt} className={styles.icon} /> <span>{locationText}</span></div>
+              <div className={styles.detailBox}><FontAwesomeIcon icon={faBuilding} className={styles.icon} /> <span>{salaryText}</span></div>
             </div>
-            <Button variant="primary" className={styles.applyButton} onClick={handleApply}>
-              {t('Aplicar')}
+            <Button 
+              variant={hasApplied ? "danger" : "primary"} 
+              className={`${styles.applyButton} ${hasApplied ? styles.appliedButton : ''}`} 
+              onClick={handleApply}
+              disabled={isApplying || hasApplied || isAdmin}
+            >
+              {isApplying ? (
+                <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+              ) : hasApplied ? (
+                <><FontAwesomeIcon icon={faCheck} className="me-2" />{t('Aplicada')}</>
+              ) : (
+                t('Aplicar')
+              )}
             </Button>
             {isOwner && (
               <Button
@@ -114,7 +139,7 @@ function CardOfertaTrabajo({ oferta, onOfferDeleted }) {
                 onClick={handleDelete}
                 disabled={isDeleting}
               >
-                {isDeleting ? t('Eliminando...') : t('Eliminar')}
+                {isDeleting ? t('Eliminando...') : t('Eliminar candidatura')}
               </Button>
             )}
           </Col>

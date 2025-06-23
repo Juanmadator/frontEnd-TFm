@@ -1,4 +1,4 @@
-import{ createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect } from 'react';
 import { loginUser as loginApiService, registerUser as registerApiService } from "../../services/authService";
 
 const AuthContext = createContext(null);
@@ -41,28 +41,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-
-   const register = async (nombre,email,password,rol,username) => {
+  const register = async (nombre, email, password, rol, username) => {
     setLoading(true);
     try {
-      // Llamamos al servicio de API que solo hace la petición fetch
-      const data = await registerApiService(nombre,email,password,rol,username);
-      
-      // Opcional y recomendado: Si el registro devuelve un usuario y un token,
-      // hacemos login automáticamente.
+      const data = await registerApiService(nombre, email, password, rol, username);
       if (data.usuario && data.token) {
         setUser(data.usuario);
         setToken(data.token);
       } else if (data.usuario) {
-        // Si solo devuelve el usuario pero no el token
         setUser(data.usuario);
       }
-      
       setLoading(false);
-      return data; // Devolvemos los datos para que el componente muestre el mensaje de éxito
+      return data;
     } catch (error) {
       setLoading(false);
-      throw error; // Propagamos el error para que el componente Register lo muestre
+      throw error;
     }
   };
 

@@ -25,7 +25,7 @@ export const CreateCompany = () => {
         setIsAdmin(true);
       }
     } else {
-      showToast('error', 'Error', 'Inicia sesión.');
+      showToast('error', 'Autenticacion fallida', 'Debes ser administrador.');
     }
   }, [showToast]);
 
@@ -41,12 +41,15 @@ export const CreateCompany = () => {
     e.preventDefault();
 
     if (!userId) {
-      showToast('error', 'Error', 'ID de usuario no disponible.');
+      showToast('error', 'Error', 'Inicia sesion');
+      limpiarFormulario();
       return;
     }
 
     if (!isAdmin) {
-      showToast('error', 'Acceso denegado', 'No tienes permisos para registrar una empresa.');
+      showToast('error', 'Acceso denegado', 'Debes ser administrador');
+      limpiarFormulario();
+
       return;
     }
 
@@ -80,6 +83,19 @@ export const CreateCompany = () => {
       setLoading(false);
     }
   };
+
+    if (!isAdmin) {
+      return (
+          <div className={styles.registerContainer} style={{ marginTop: "40px" }}>
+              <div className={styles.registerCard}>
+                  <h2 className={styles.registerTitle}>Crear Nueva Oferta</h2>
+                  <p className="text-center" style={{color: '#ffc107'}}>
+                      No tienes permisos de administrador para acceder a esta sección.
+                  </p>
+              </div>
+          </div>
+      );
+    }
 
   return (
     <div className={styles.registerContainer}>
