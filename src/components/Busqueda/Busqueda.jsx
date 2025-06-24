@@ -1,27 +1,18 @@
-// src/components/Busqueda/Busqueda.jsx
-
-import React from 'react'; // Eliminamos useState porque ya no lo necesitamos aquí
+import React from 'react';
 import { Container, Row, Col, Form, InputGroup, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { useTranslation } from 'react-i18next';
 import styles from './Busqueda.module.css';
 
-// 1. Recibimos las props 'filtros' y 'onFiltroChange' desde el padre (Home.jsx)
 function Busqueda({ filtros, onFiltroChange }) {
   const { t } = useTranslation();
-
-  // 2. Eliminamos los estados locales (useState). El estado ahora lo controla Home.
-  // const [jobTitle, setJobTitle] = useState('');
-  // const [location, setLocation] = useState('');
 
   const commonSearches = [
     t('Ingeniero de software'), t('Diseñador UX/UI'), t('Chef'), t('Mecánico'),
     t('Profesor'), t('Analista de datos'), t('Marketing digital'), t('Arquitecto'),
   ];
 
-  // 3. Unificamos los manejadores de eventos en una sola función.
-  // Esta función llamará a la prop 'onFiltroChange' para notificar al componente 'Home'.
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     onFiltroChange({ [name]: value });
@@ -29,7 +20,6 @@ function Busqueda({ filtros, onFiltroChange }) {
 
   const handleSearch = (e) => {
     e.preventDefault();
-   
   };
 
   const handleCommonSearchClick = (term) => {
@@ -55,9 +45,8 @@ function Busqueda({ filtros, onFiltroChange }) {
                   <Form.Control
                     type="text"
                     placeholder={t('Encuentra tu trabajo ideal')}
-                    // 4. Asignamos el valor desde las props y añadimos el atributo 'name'
                     name="titulo"
-                    value={filtros.titulo} 
+                    value={filtros.titulo}
                     onChange={handleInputChange}
                     className={styles.searchInput}
                   />
@@ -67,7 +56,6 @@ function Busqueda({ filtros, onFiltroChange }) {
                   <Form.Control
                     type="text"
                     placeholder={t('Ubicación')}
-                     // 5. Hacemos lo mismo para el campo de ubicación
                     name="ubicacion"
                     value={filtros.ubicacion}
                     onChange={handleInputChange}

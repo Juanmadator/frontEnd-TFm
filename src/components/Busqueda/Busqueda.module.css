@@ -1,39 +1,34 @@
-/* JobSearch.module.css */
-
 .jobSearchContainer {
-  background-color: #b9ddfb; /* Light blue background (from your provided code) */
-  padding: 0 40px; /* Changed padding-top to 0. Keep horizontal padding. */
+  background-color: #b9ddfb;
+  padding: 0 40px;
   min-height: 400px;
-  max-width: 1200px; /* From your provided code */
-  align-items: flex-start; /* Aligns content to the top of the container */
-  display: flex; /* Ensure display flex is set if not already default */
-  /* If your JobSearch component is wrapped in a full-width div, you might need margin: 0 auto; on this container */
-  margin: 0 auto; /* Added to center the max-width: 1200px container horizontally */
+  max-width: 1200px;
+  align-items: flex-start;
+  display: flex;
+  margin: 0 auto;
   margin-top: -40px;
   padding-top: 100px;
   padding-bottom: 120px;
 }
 
-/* The .color class seems to be a new addition, ensure it's applied correctly if used elsewhere */
 .color {
   background-color: #b9ddfb;
 }
 
-
 .leftSection {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the content wrapper horizontally */
+  align-items: center;
   padding-right: 30px;
-  text-align: center; /* Center text within this column */
-  padding-top: 60px; /* ADDED: Move the 60px padding here to maintain space *inside* the blue section */
+  text-align: center;
+  padding-top: 60px;
 }
 
 .heroContentWrapper {
   display: flex;
   flex-direction: column;
-  align-items: start; /* Center items within this wrapper */
-  max-width: 600px; /* Limit the width of the content for better centering visual */
+  align-items: start;
+  max-width: 600px;
   width: 100%;
 }
 
@@ -125,7 +120,7 @@
   align-items: center;
   padding-left: 30px;
   text-align: center;
-  padding-top: 60px; /* ADDED: Move the 60px padding here to maintain space *inside* the blue section */
+  padding-top: 60px;
 }
 
 .commonSearchesContentWrapper {
@@ -180,10 +175,9 @@
   background-color: #4a6a81;
 }
 
-/* Responsive adjustments */
 @media (max-width: 767.98px) {
   .jobSearchContainer {
-    padding: 100px 15px; /* Adjust padding for mobile as well */
+    padding: 100px 15px;
   }
 
   .leftSection,
@@ -192,7 +186,7 @@
     padding-right: 0;
     align-items: center;
     text-align: center;
-    padding-top: 30px; /* Adjust padding-top for mobile sections */
+    padding-top: 30px;
   }
 
   .heroContentWrapper,
@@ -274,7 +268,7 @@
   .rightSection {
     padding-left: 20px;
     padding-right: 20px;
-    padding-top: 40px; /* Adjust padding-top for medium devices */
+    padding-top: 40px;
   }
 
   .heroText {
